@@ -1,4 +1,7 @@
 use std::sync::atomic::{AtomicUsize, Ordering};
+#[cfg(any(target_env = "sgx"))]
+use std::sync::{Arc, SgxCondvar as Condvar, SgxMutex as Mutex};
+#[cfg(not(target_env = "sgx"))]
 use std::sync::{Arc, Condvar, Mutex};
 use std::usize;
 

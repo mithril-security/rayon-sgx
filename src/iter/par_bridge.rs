@@ -1,6 +1,9 @@
 use crossbeam_deque::{Steal, Stealer, Worker};
 
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
+#[cfg(all(target_env = "sgx"))]
+use std::sync::{SgxMutex as Mutex, TryLockError};
+#[cfg(not(target_env = "sgx"))]
 use std::sync::{Mutex, TryLockError};
 use std::thread::yield_now;
 

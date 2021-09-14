@@ -94,6 +94,11 @@ impl ThreadSpawn for DefaultSpawn {
         if let Some(name) = thread.name() {
             b = b.name(name.to_owned());
         }
+        #[cfg(all(target_env = "sgx"))]
+        if let Some(stack_size) = thread.stack_size() {
+            b = b;
+        }
+        #[cfg(not(target_env = "sgx"))]
         if let Some(stack_size) = thread.stack_size() {
             b = b.stack_size(stack_size);
         }

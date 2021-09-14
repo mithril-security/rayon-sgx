@@ -7,7 +7,10 @@
 
 use crate::iter::plumbing::*;
 use crate::iter::*;
+#[cfg(not(target_env = "sgx"))]
 use std::sync::Mutex;
+#[cfg(all(target_env = "sgx"))]
+use std::sync::SgxMutex as Mutex;
 
 use crate::option;
 
